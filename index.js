@@ -763,7 +763,7 @@ a:link {
 		<option value="flip">flip</option>
 		<option value="darts">darts</option>
 		<option value="snakes">snakes</option>
-		<option value="packs">pscks</option>
+		<option value="packs">packs</option>
 		<option value="bars">bars</option>
 		<option value="cases">cases</option>
 		<option value="rps">rps</option>
@@ -5238,3 +5238,4 @@ function subscribeToChannels() {
 }
 
 addBot();
+
