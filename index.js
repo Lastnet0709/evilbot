@@ -763,6 +763,7 @@ a:link {
 		<option value="flip">flip</option>
 		<option value="darts">darts</option>
 		<option value="snakes">snakes</option>
+		<option value="packs">pscks</option>
 		<option value="bars">bars</option>
 		<option value="cases">cases</option>
 		<option value="rps">rps</option>
@@ -2527,6 +2528,13 @@ function tomeBet(betsize, lines) {
         retryParams: [betsize, lines]
     });
 }
+function packsBet(betsize) {
+    betRequest({
+        url: '_api/casino/packs/bet',
+        body: { currency, amount: betsize, identifier: randomString(21) },
+        retryParams: [betsize]
+    });
+}
 
 function diamondBet(betsize) {
     betRequest({
@@ -3052,7 +3060,18 @@ function data(json){
                 return;
             }
             //break;
-        }    
+        }
+		if (gameType === "packsBet"){
+            lastBet.Roll = bet.payoutMultiplier;
+            lastBet.target = 0;
+            lastBet.targetNumber = "";
+            
+            // UI Updates
+            tdTargetChance.innerHTML = bet.payoutMultiplier.toFixed(2) + "x";
+            tdTargetNumber.innerHTML = lastBet.targetNumber;
+            tdRollNumber.innerHTML = bet.payoutMultiplier.toFixed(2);
+            //break;
+        }
         if (gameType === "diamondsBet"){
             lastBet.Roll = bet.payoutMultiplier;
             lastBet.target = 0;
@@ -3328,6 +3347,7 @@ function data(json){
             tomeoflife: () => tomeBet(nextbet, lines),
             scarabspin: () => scarabBet(nextbet, lines),
             bluesamurai: () => samuraiBet(nextbet),
+			packs: () => packsBet(nextbet),
             diamonds: () => diamondBet(nextbet),
             cases: () => caseBet(nextbet, difficulty),
             videopoker: () => videopokerBet(nextbet),
@@ -4023,6 +4043,7 @@ function start(){
 				darts: () => dartsBet(nextbet, difficulty),
 				tomeoflife: () => tomeBet(nextbet, lines),
 				scarabspin: () => scarabBet(nextbet, lines),
+				packs: () => packsBet(nextbet),
 				diamonds: () => diamondBet(nextbet),
 				cases: () => caseBet(nextbet, difficulty),
 				rps: () => rockpaperBet(nextbet, guesses),
@@ -4079,6 +4100,7 @@ function start(){
 				darts:       () => runBet(dartsBet, [nextbet, difficulty]),
 				tomeoflife:  () => runBet(tomeBet, [nextbet, lines]),
 				scarabspin:  () => runBet(scarabBet, [nextbet, lines]),
+				packs: 	     () => runBet(packsBet, [nextbet]),
 				diamonds:    () => runBet(diamondBet, [nextbet]),
 				cases:       () => runBet(caseBet, [nextbet, difficulty]),
 				videopoker:  () => runBet(videopokerBet, [nextbet]),
