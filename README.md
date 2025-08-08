@@ -42,6 +42,12 @@ function dobet(){
  //strategy code
 }
 ```
+<b>Packs: </b>
+```javascript
+game = "packs"
+nextbet = 0
+```
+
 <b>Bars: </b>
 ```javascript
 game = "bars"
